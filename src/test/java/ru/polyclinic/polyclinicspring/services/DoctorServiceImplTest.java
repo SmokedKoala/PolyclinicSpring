@@ -40,12 +40,10 @@ class DoctorServiceImplTest {
     user2.setName("Petrov Petr Petrovich");
     user2.setEmail("petrov@mail.ru");
     user2.setPassword("123");
-    user2.setSpeciality("Therapist");
 
     user3.setName("Sidorov Sergey Sergeevich");
     user3.setEmail("sidorov@mail.ru");
     user3.setPassword("11111");
-    user3.setSpeciality("Surgeon");
 
     doctorService.saveDoctor(user1);
     doctorService.saveDoctor(user2);
@@ -61,31 +59,4 @@ class DoctorServiceImplTest {
     assertEquals(usersToBeFound, doctorService.findAllDoctors());
   }
 
-  @Test
-  void findBySpeciality() {
-    Doctor user1 = new Doctor();
-    Doctor user2 = new Doctor();
-    List<Doctor> usersToBeFound = new ArrayList<>();
-
-    user1.setName("Ivanov Ivan Ivanovich");
-    user1.setEmail("ivanov@mail.ru");
-    user1.setPassword("qwerty");
-
-    user2.setName("Petrov Petr Petrovich");
-    user2.setEmail("petrov@mail.ru");
-    user2.setPassword("123");
-    user2.setSpeciality("Therapist");
-
-
-
-    doctorService.saveDoctor(user2);
-
-    usersToBeFound.add(user2);
-
-    Mockito.doReturn(usersToBeFound)
-        .when(doctorRepository)
-        .findAll();
-
-    assertEquals(usersToBeFound, doctorService.findBySpeciality("Therapist"));
-  }
 }

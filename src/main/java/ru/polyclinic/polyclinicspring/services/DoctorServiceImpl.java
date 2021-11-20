@@ -20,9 +20,9 @@ public class DoctorServiceImpl implements DoctorService {
   }
 
   @Override
-  public List<Doctor> findBySpeciality(String speciality) {
-    List<Doctor> all = (List<Doctor>) doctorRepository.findAll();
-    return all.stream().filter(i-> i.getSpeciality().equals(speciality)).collect(Collectors.toList());
+  public Iterable<Doctor> findBySpeciality(int speciality) {
+    Iterable<Doctor> all = doctorRepository.findAll();
+    return all.stream().filter(i-> i.getDepartment().getDepartmentId().equals(speciality)).collect(Collectors.toList());
   }
 
   @Override

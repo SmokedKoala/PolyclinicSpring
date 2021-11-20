@@ -29,8 +29,6 @@ public class Doctor {
   @Column(nullable = false)
   private String email;
 
-  @Column(nullable = true)
-  private String speciality;
 
   @ManyToOne(cascade = CascadeType.MERGE)
   @JoinColumn(name = "department_id")
@@ -71,14 +69,6 @@ public class Doctor {
     this.email = email;
   }
 
-  public String getSpeciality() {
-    return speciality;
-  }
-
-  public void setSpeciality(String speciality) {
-    this.speciality = speciality;
-  }
-
   public Department getDepartment() {
     return department;
   }
@@ -104,7 +94,6 @@ public class Doctor {
     this.name = name;
     this.password = password;
     this.email = email;
-    this.speciality = speciality;
   }
 
   @Override
@@ -114,7 +103,6 @@ public class Doctor {
         ", name='" + name + '\'' +
         ", password='" + password + '\'' +
         ", email='" + email + '\'' +
-        ", speciality='" + speciality + '\'' +
         '}';
   }
 }

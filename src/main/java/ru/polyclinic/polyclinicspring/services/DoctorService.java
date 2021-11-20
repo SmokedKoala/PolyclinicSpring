@@ -7,7 +7,7 @@ public interface DoctorService {
 
   public List<Doctor> findAllDoctors();
 
-  public List<Doctor> findBySpeciality(String speciality);
+  public Iterable<Doctor> findBySpeciality(int speciality);
 
   public void saveDoctor(Doctor user);
 
