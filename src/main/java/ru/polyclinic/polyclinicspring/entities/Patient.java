@@ -1,13 +1,22 @@
 package ru.polyclinic.polyclinicspring.entities;
 
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
-public class User {
+@Table(name = "patient")
+public class Patient {
   @Id
   @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
@@ -21,11 +30,8 @@ public class User {
   @Column(nullable = false)
   private String email;
 
-  @Column(nullable = false)
-  private Integer role;
-
-  @Column(nullable = true)
-  private String speciality;
+  @OneToMany(targetEntity=Appointment.class, mappedBy = "patient", cascade = CascadeType.ALL)
+  private List<Appointment> appointmentList;
 
   public Integer getId() {
     return id;
@@ -51,22 +57,6 @@ public class User {
     this.email = email;
   }
 
-  public Integer getRole() {
-    return role;
-  }
-
-  public void setRole(Integer role) {
-    this.role = role;
-  }
-
-  public String getSpeciality() {
-    return speciality;
-  }
-
-  public void setSpeciality(String speciality) {
-    this.speciality = speciality;
-  }
-
   public String getPassword() {
     return password;
   }
@@ -75,14 +65,21 @@ public class User {
     this.password = password;
   }
 
+  public List<Appointment> getAppointmentList() {
+    return appointmentList;
+  }
+
+  public void setAppointmentList(
+      List<Appointment> appointmentList) {
+    this.appointmentList = appointmentList;
+  }
+
   @Override
   public String toString() {
     return "User{" +
         "id=" + id +
         ", name='" + name + '\'' +
         ", email='" + email + '\'' +
-        ", role=" + role +
-        ", speciality='" + speciality + '\'' +
         '}';
   }
 }

@@ -6,14 +6,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import ru.polyclinic.polyclinicspring.entities.User;
-import ru.polyclinic.polyclinicspring.repositories.UserRepository;
+import ru.polyclinic.polyclinicspring.entities.Patient;
+import ru.polyclinic.polyclinicspring.repositories.PatientRepository;
 
 @Controller
 public class PatientController {
 
   @Autowired
-  private UserRepository patientRepository;
+  private PatientRepository patientRepository;
 
   @GetMapping(path = "/")
   public String getMainPage(){
@@ -24,7 +24,7 @@ public class PatientController {
   public @ResponseBody
   String addNewUser (@RequestParam String name
       , @RequestParam String email) {
-    User n = new User();
+    Patient n = new Patient();
     n.setName(name);
     n.setEmail(email);
     patientRepository.save(n);
@@ -32,7 +32,7 @@ public class PatientController {
   }
 
   @GetMapping(path="/all")
-  public @ResponseBody Iterable<User> getAllUsers() {
+  public @ResponseBody Iterable<Patient> getAllUsers() {
     return patientRepository.findAll();
   }
 }
