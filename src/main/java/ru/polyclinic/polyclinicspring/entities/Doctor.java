@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "doctor")
-public class Doctor {
+public class Doctor implements User{
 
   @Id
   @GeneratedValue(strategy= GenerationType.AUTO)

@@ -5,10 +5,11 @@
   <title>Main Page</title>
 </head>
 <body>
-
+<a href="/signup">Sign up</a>
+<a href="/login">Log in</a>
 <div th:each="department : ${departments}">
   <a
-      th:href="@{/{department}(department = ${department.getDepartmentId()})}"
+      th:href="@{department/{department}(department = ${department.getDepartmentId()})}"
       th:text="${department.getDepartmentName()}">Default</a>
 </div>
 </body>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
@@ -7,8 +7,10 @@
 <body>
 
 <div th:each="doctor : ${doctors}">
-  <p th:text="${doctors.}">Default</p>
+  <p th:text="${doctor.getName()}">Default</p>
+  <p th:text="${doctor.getEmail()}">Default</p>
 </div>
 
+<a href="/">Back</a>
 </body>
 </html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<form th:method="POST" th:action="@{/signup}" th:object="${patient}">
+  <label for="name-label">Enter name: </label>
+  <input type="text" th:field="*{name}" id="name-label">
+  <br>
+  <label for="age-label">Enter email: </label>
+  <input type="text" th:field="*{email}" id="age-label">
+  <br>
+  <label for="email-label">Enter password: </label>
+  <input type="text" th:field="*{password}" id="email-label">
+  <br/>
+  <input type="submit" value="Sign up"/>
+</form>
+
+</body>
+</html>
