@@ -5,8 +5,15 @@
   <title>Main Page</title>
 </head>
 <body>
-<a href="/signup">Sign up</a>
-<a href="/login">Log in</a>
+<div th:if="${login_user == null}">
+  <a href="/signup">Sign up</a>
+  <a href="/login">Log in</a>
+</div>
+<div th:unless="${login_user == null}">
+  <a href="/profile" th:text="${login_user}">Profile</a>
+  <a href="/logout" >Log out</a>
+</div>
+
 <div th:each="department : ${departments}">
   <a
       th:href="@{department/{department}(department = ${department.getDepartmentId()})}"

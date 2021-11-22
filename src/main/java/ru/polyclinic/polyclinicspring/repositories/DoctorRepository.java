@@ -9,6 +9,7 @@ public interface DoctorRepository extends CrudRepository<Doctor, Integer> {
   Doctor findByEmail(String email);
 
 
+
   List<Doctor> findDoctorByDepartmentDepartmentId(int speciality);
 
 }

@@ -1,6 +1,8 @@
 package ru.polyclinic.polyclinicspring.entities;
 
 import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,7 +22,13 @@ public class Appointment {
   private Integer id;
 
   @Column(nullable = false)
-  private Date time;
+  private Timestamp time;
+
+  @Column(nullable = true)
+  private String description;
+
+  @Column(nullable = false)
+  private boolean submitted;
 
   public void setId(Integer id) {
     this.id = id;
@@ -54,21 +62,39 @@ public class Appointment {
     this.patient = patient;
   }
 
-  public Date getTime() {
+  public Timestamp getTime() {
     return time;
   }
 
-  public void setTime(Date time) {
+  public void setTime(Timestamp time) {
     this.time = time;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  public boolean isSubmitted() {
+    return submitted;
+  }
+
+  public void setSubmitted(boolean submitted) {
+    this.submitted = submitted;
   }
 
   public Appointment() {
   }
 
-  public Appointment(Integer id, Date time, Doctor doctor,
-      Patient patient) {
+  public Appointment(Integer id, Timestamp time, String description, boolean submitted,
+      Doctor doctor, Patient patient) {
     this.id = id;
     this.time = time;
+    this.description = description;
+    this.submitted = submitted;
     this.doctor = doctor;
     this.patient = patient;
   }

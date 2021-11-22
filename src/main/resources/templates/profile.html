@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<p th:text="${user.getName()}">User</p>
+<p th:text="${user.getEmail()}">user@user.ru</p>
+
+<br>
+<h3>Appointments</h3>
+
+<div th:each="appointment : ${usersAppointments}">
+
+  <div th:if="${userStatus == 0}">
+    <p th:text="${appointment.getDoctor().getName()}">Doctor</p>
+  </div>
+
+  <div th:unless="${userStatus == 0}">
+    <p th:text="${appointment.getPatient().getName()}">Patient</p>
+  </div>
+
+  <p  th:if="${appointment.getDescription() != null}"
+      th:text="${appointment.getDescription()}">Time</p>
+  <p th:text="${appointment.getTime()}">Time</p>
+</div>
+
+<div th:if="${userStatus == 0}">
+  <a href="/new_appointment">Make new appointment</a>
+</div>
+
+<a href="/">Back</a>
+</body>
+</html>
