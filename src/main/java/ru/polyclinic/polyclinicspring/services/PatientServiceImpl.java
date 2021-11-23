@@ -41,5 +41,6 @@ public class PatientServiceImpl implements PatientService {
         .getAppointmentList();
     appointmentList1.addAll(appointmentList);
     user.setAppointmentList(appointmentList1);
+    patientRepository.save(user);
   }
 }

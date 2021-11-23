@@ -3,11 +3,13 @@ package ru.polyclinic.polyclinicspring.services;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ru.polyclinic.polyclinicspring.entities.Appointment;
 import ru.polyclinic.polyclinicspring.entities.Doctor;
 import ru.polyclinic.polyclinicspring.entities.Patient;
 import ru.polyclinic.polyclinicspring.repositories.AppointmentRepository;
 
+@Service
 public class AppointmentServiceImpl implements AppointmentService{
 
   @Autowired
@@ -23,5 +25,10 @@ public class AppointmentServiceImpl implements AppointmentService{
   public List<Appointment> getAllForPatient(Patient patient) {
     List<Appointment> appointments = (List<Appointment>) appointmentRepository.findAll();
     return appointments.stream().filter(i -> i.getPatient().equals(patient)).collect(Collectors.toList());
+  }
+
+  @Override
+  public void updateAppointment(Appointment appointment) {
+    appointmentRepository.save(appointment);
   }
 }

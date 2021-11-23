@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<!--<h2 th:text="${}"></h2>-->
+
+<div th:each="appointment : ${appointments}">
+  <form role="form" id="sendData" th:action="@{/new_appointment}" th:method="post">
+    <input type="hidden" th:value="${appointment.getId()}" name="appointment">
+    <input type="submit" th:value="${appointment.getDoctor().getName() +' '+ appointment.getTime()}"/>
+  </form>
+
+</div>
+<a href="/profile">Back</a>
+</body>
+</html>

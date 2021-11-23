@@ -10,4 +10,6 @@ public interface AppointmentService {
   List<Appointment> getAllForDoctor(Doctor doctor);
 
   List<Appointment> getAllForPatient(Patient patient);
+
+  void updateAppointment(Appointment appointment);
 }

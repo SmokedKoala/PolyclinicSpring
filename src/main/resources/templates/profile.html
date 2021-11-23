@@ -21,14 +21,20 @@
     <p th:text="${appointment.getPatient().getName()}">Patient</p>
   </div>
 
-  <p  th:if="${appointment.getDescription() != null}"
-      th:text="${appointment.getDescription()}">Time</p>
+  <p th:if="${appointment.getDescription() != null}"
+     th:text="${appointment.getDescription()}">Time</p>
   <p th:text="${appointment.getTime()}">Time</p>
+  <br>
 </div>
 
-<div th:if="${userStatus == 0}">
-  <a href="/new_appointment">Make new appointment</a>
-</div>
+
+<form th:if="${userStatus == 0}"
+      role="form" id="sendData" th:action="@{/new_appointment}" th:method="get">
+  <select name="department">
+    <option th:each="department: ${departments}" th:text="${department.getDepartmentName()}"></option>
+  </select>
+  <input type="submit" value="New appointment"/>
+</form>
 
 <a href="/">Back</a>
 </body>
