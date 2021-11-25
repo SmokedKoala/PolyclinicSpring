@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<p th:text="${appointmentInfo.getPatient().getName()}">User</p>
+<p th:text="${appointmentInfo.getTime()}">Time</p>
+
+<form role="form" id="sendData" th:action="@{/change}" th:method="post">
+
+  
+  <textarea name="newDescription" th:text="${appointmentInfo.getDescription()}"> </textarea>
+  <input type="hidden" name="appointmentId" th:value="${appointmentInfo.getId()}">
+  <p><input type="submit" value="Change description"></p>
+
+
+</form>
+
+<a href="/profile">Back</a>
+</body>
+</html>

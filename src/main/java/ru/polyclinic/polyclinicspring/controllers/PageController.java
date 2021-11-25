@@ -109,18 +109,15 @@ public class PageController {
 
   @GetMapping("new_appointment")
   public String new_appointment(@RequestParam("department") String department, Model model) {
-//    Department department1 = departmentRepository.findByDepartmentName(department);
-//    System.out.println(department1);
-
-    List<Appointment> appointmentList = appointmentRepository.findAppointmentsByPatientIsNullAndDoctor_Department_DepartmentName(department);
-
+    List<Appointment> appointmentList = appointmentRepository
+        .findAppointmentsByPatientIsNullAndDoctor_Department_DepartmentName(department);
     model.addAttribute("appointments", appointmentList);
     return "new_appointment";
   }
 
   @PostMapping("new_appointment")
-  public String get_new_appointment(@RequestParam("appointment") int appointment_id, Principal principal) {
-
+  public String get_new_appointment(@RequestParam("appointment") int appointment_id,
+      Principal principal) {
     Patient user;
     String userEmail = principal.getName();
     user = patientRepository.findByEmail(userEmail);
@@ -135,7 +132,21 @@ public class PageController {
     return "redirect:profile";
   }
 
+  @GetMapping("change/{appointment}")
+  public String changeAppointment(@PathVariable("appointment") int appointmentId, Model model) {
+    Appointment appointment = appointmentRepository.findById(appointmentId).get();
+    model.addAttribute("appointmentInfo", appointment);
+    return "change_appointment";
+  }
 
+  @PostMapping("change")
+  public String getChangedAppointment(@RequestParam("newDescription") String newDescription,
+      @RequestParam("appointmentId") int appointmentId) {
+    Appointment appointment = appointmentRepository.findById(appointmentId).get();
+    appointment.setDescription(newDescription);
+    appointmentService.updateAppointment(appointment);
+    return "redirect:profile";
+  }
 }
 
 

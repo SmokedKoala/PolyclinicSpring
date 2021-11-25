@@ -19,6 +19,7 @@
 
   <div th:unless="${userStatus == 0}">
     <p th:text="${appointment.getPatient().getName()}">Patient</p>
+    <a th:href="@{change/{appointment}(appointment = ${appointment.getId()})}">Change/Add description</a>
   </div>
 
   <p th:if="${appointment.getDescription() != null}"

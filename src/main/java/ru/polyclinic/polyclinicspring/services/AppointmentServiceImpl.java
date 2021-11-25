@@ -29,6 +29,9 @@ public class AppointmentServiceImpl implements AppointmentService{
 
   @Override
   public void updateAppointment(Appointment appointment) {
-    appointmentRepository.save(appointment);
+    Appointment appointment1 = appointmentRepository.findById(appointment.getId()).get();
+    appointment1.setDescription(appointment.getDescription());
+    appointment1.setPatient(appointment.getPatient());
+    appointmentRepository.save(appointment1);
   }
 }
