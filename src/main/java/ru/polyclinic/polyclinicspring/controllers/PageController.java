@@ -2,8 +2,6 @@ package ru.polyclinic.polyclinicspring.controllers;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.stream.Collectors;
-import javax.print.Doc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,8 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import ru.polyclinic.polyclinicspring.entities.Appointment;
-import ru.polyclinic.polyclinicspring.entities.Department;
-import ru.polyclinic.polyclinicspring.entities.Doctor;
 import ru.polyclinic.polyclinicspring.entities.Patient;
 import ru.polyclinic.polyclinicspring.entities.User;
 import ru.polyclinic.polyclinicspring.repositories.AppointmentRepository;
@@ -88,17 +84,20 @@ public class PageController {
   @GetMapping("profile")
   public String profile(Model model, Principal principal) {
     User user;
+    List<Appointment> appointmentList;
     String userEmail = principal.getName();
     user = patientRepository.findByEmail(userEmail);
     if (user == null) {
       user = doctorRepository.findByEmail(userEmail);
+      appointmentList = appointmentService.getSortedListOfAppointmentsForDoctor(user.getId());
+
       model.addAttribute("usersAppointments",
-          appointmentRepository.findAppointmentsByDoctorIdAndPatientNotNull(
-              user.getId()));
+          appointmentList);
       model.addAttribute("userStatus", 1);
     } else {
-      model.addAttribute("usersAppointments", appointmentRepository.findAppointmentsByPatientId(
-          user.getId()));
+      appointmentList = appointmentService.getSortedListOfAppointmentsForPatient(user.getId());
+
+      model.addAttribute("usersAppointments", appointmentList);
       model.addAttribute("userStatus", 0);
     }
     model.addAttribute("user", user);
@@ -109,8 +108,9 @@ public class PageController {
 
   @GetMapping("new_appointment")
   public String new_appointment(@RequestParam("department") String department, Model model) {
-    List<Appointment> appointmentList = appointmentRepository
-        .findAppointmentsByPatientIsNullAndDoctor_Department_DepartmentName(department);
+    List<Appointment> appointmentList = appointmentService
+        .getSortedListOfFreeAppointments(department);
+
     model.addAttribute("appointments", appointmentList);
     return "new_appointment";
   }

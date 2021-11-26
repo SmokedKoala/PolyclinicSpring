@@ -12,4 +12,10 @@ public interface AppointmentService {
   List<Appointment> getAllForPatient(Patient patient);
 
   void updateAppointment(Appointment appointment);
+
+  List<Appointment> getSortedListOfFreeAppointments(String departmentName);
+
+  List<Appointment> getSortedListOfAppointmentsForDoctor(int id);
+
+  List<Appointment> getSortedListOfAppointmentsForPatient(int id);
 }

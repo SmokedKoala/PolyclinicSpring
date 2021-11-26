@@ -29,6 +29,9 @@ public class Doctor implements User{
   @Column(nullable = false)
   private String email;
 
+  @Column(nullable = true)
+  private int cabinet;
+
 
   @ManyToOne(cascade = CascadeType.MERGE)
   @JoinColumn(name = "department_id")
@@ -86,14 +89,25 @@ public class Doctor implements User{
     this.appointmentList = appointmentList;
   }
 
+  public int getCabinet() {
+    return cabinet;
+  }
+
+  public void setCabinet(int cabinet) {
+    this.cabinet = cabinet;
+  }
+
   public Doctor() {
   }
 
-  public Doctor(Integer id, String name, String password, String email, String speciality) {
+  public Doctor(Integer id, String name, String password, String email, int cabinet,
+      Department department) {
     this.id = id;
     this.name = name;
     this.password = password;
     this.email = email;
+    this.cabinet = cabinet;
+    this.department = department;
   }
 
   @Override

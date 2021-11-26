@@ -1,5 +1,6 @@
 package ru.polyclinic.polyclinicspring.services;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,5 +34,34 @@ public class AppointmentServiceImpl implements AppointmentService{
     appointment1.setDescription(appointment.getDescription());
     appointment1.setPatient(appointment.getPatient());
     appointmentRepository.save(appointment1);
+  }
+
+  @Override
+  public List<Appointment> getSortedListOfFreeAppointments(String departmentName) {
+    List<Appointment> appointmentList = appointmentRepository
+        .findAppointmentsByPatientIsNullAndDoctor_Department_DepartmentName(departmentName);
+    appointmentList.stream().sorted(Comparator.comparing(Appointment::getTime))
+        .collect(Collectors.toList());
+    return appointmentList;
+  }
+
+  @Override
+  public List<Appointment> getSortedListOfAppointmentsForDoctor(int id) {
+    List<Appointment> appointmentList = (List<Appointment>) appointmentRepository
+        .findAppointmentsByDoctorIdAndPatientNotNull(id);
+
+    appointmentList.stream().sorted(Comparator.comparing(Appointment::getTime))
+        .collect(Collectors.toList());
+    return appointmentList;
+  }
+
+  @Override
+  public List<Appointment> getSortedListOfAppointmentsForPatient(int id) {
+    List<Appointment> appointmentList= (List<Appointment>) appointmentRepository
+        .findAppointmentsByPatientId(
+            id);
+    appointmentList.stream().sorted(Comparator.comparing(Appointment::getTime))
+        .collect(Collectors.toList());
+    return appointmentList;
   }
 }

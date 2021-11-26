@@ -27,8 +27,6 @@ public class Appointment {
   @Column(nullable = true)
   private String description;
 
-  @Column(nullable = false)
-  private boolean submitted;
 
   public void setId(Integer id) {
     this.id = id;
@@ -78,23 +76,14 @@ public class Appointment {
     this.description = description;
   }
 
-  public boolean isSubmitted() {
-    return submitted;
-  }
-
-  public void setSubmitted(boolean submitted) {
-    this.submitted = submitted;
-  }
-
   public Appointment() {
   }
 
-  public Appointment(Integer id, Timestamp time, String description, boolean submitted,
+  public Appointment(Integer id, Timestamp time, String description,
       Doctor doctor, Patient patient) {
     this.id = id;
     this.time = time;
     this.description = description;
-    this.submitted = submitted;
     this.doctor = doctor;
     this.patient = patient;
   }
