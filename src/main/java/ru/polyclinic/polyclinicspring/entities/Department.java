@@ -1,5 +1,6 @@
 package ru.polyclinic.polyclinicspring.entities;
 
+import java.util.Collection;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,8 +21,13 @@ public class Department {
   @Column(nullable = false)
   private String departmentName;
 
-  @OneToMany(targetEntity=Doctor.class, mappedBy = "department", cascade = CascadeType.ALL)
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "department")
   private List<Doctor> doctorList;
+
+  public void setDoctorList(
+      Collection<Doctor> doctorList) {
+    this.doctorList = doctorList;
+  }
 
   public Integer getDepartmentId() {
     return departmentId;
